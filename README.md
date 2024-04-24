@@ -1,2 +1,7 @@
-# CS485-Flocking-Simulation-Final-Game-Project
-Final game project for CS485 including flocking simulation via boid's algorithm including separation, alignment, and cohesion.
+# spring_2024_cs485
+
+python -m http.server
+
+http://localhost:8000
+
+
