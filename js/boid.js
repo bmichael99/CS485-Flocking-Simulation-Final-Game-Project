@@ -22,8 +22,8 @@ class boid{
         this.x = this.random_pos_x();
         this.y = this.random_pos_y();
 
-        this.maxforce = 0.5;
-        this.maxSpeed = 10;
+        this.maxforce = 0.2;
+        this.maxSpeed = 5;
 
     }
 
@@ -61,14 +61,9 @@ class boid{
             this.cur_frame = 0;
         }
 
-        
-        
-
-        
-            this.update_animation();
-            
             //Screen border checks
             
+            /*
             if(this.x >= (window.innerWidth - this.sprite_json[this.root_e][this.state][this.cur_frame]['w']) ){//Right
                 this.x_v = -this.x_v
                 this.y_v = this.y_v
@@ -85,8 +80,9 @@ class boid{
                 this.x_v = this.x_v
                 this.y_v = -this.y_v
             }
+            */
 
-            /*
+            
             if(this.x >= (window.innerWidth - this.sprite_json[this.root_e][this.state][this.cur_frame]['w']) ){//Right
                 this.x = 1;
             }
@@ -98,7 +94,7 @@ class boid{
             }
             if(this.y <= 0){ //Top
                 this.y = window.innerHeight - this.sprite_json[this.root_e][this.state][this.cur_frame]['h']-1;
-            }*/
+            }
             
             //If we're not idle, then we should be moving!
             this.x += this.x_v;
@@ -135,7 +131,7 @@ class boid{
             }
         }
 
-        
+        this.update_animation();
         
         
 
@@ -168,7 +164,7 @@ class boid{
 
 
     align(boids){
-        let perceptionRadius = 300;
+        let perceptionRadius = 200;
         let total = 0;
         let steering_x = 0;
         let steering_y = 0;
@@ -191,11 +187,11 @@ class boid{
             
             if(steering_x < 0)
                 steering_x = -this.maxSpeed;
-            else 
+            else if ((steering_y > 0))
                 steering_x = this.maxSpeed;
             if(steering_y < 0)
                 steering_y = -this.maxSpeed;
-            else
+            else if ((steering_y > 0))
                 steering_y = this.maxSpeed;
 
 
@@ -224,7 +220,7 @@ class boid{
     }
 
     cohesion(boids){
-        let perceptionRadius = 300;
+        let perceptionRadius = 400;
         let total = 0;
         let steering_x = 0;
         let steering_y = 0;
@@ -249,11 +245,11 @@ class boid{
 
             if(steering_x < 0)
                 steering_x = -this.maxSpeed;
-            else 
+            else if ((steering_y > 0))
                 steering_x = this.maxSpeed;
             if(steering_y < 0)
                 steering_y = -this.maxSpeed;
-            else
+            else if ((steering_y > 0))
                 steering_y = this.maxSpeed;
 
             steering_x -= this.x_v
@@ -281,7 +277,7 @@ class boid{
     }
 
     separation(boids){
-        let perceptionRadius = 150;
+        let perceptionRadius = 192;
         let total = 0;
         let steering_x = 0;
         let steering_y = 0;
@@ -310,11 +306,11 @@ class boid{
 
             if(steering_x < 0)
                 steering_x = -this.maxSpeed;
-            else 
+            else if ((steering_y > 0))
                 steering_x = this.maxSpeed;
             if(steering_y < 0)
                 steering_y = -this.maxSpeed;
-            else
+            else if ((steering_y > 0))
                 steering_y = this.maxSpeed;
 
             steering_x -= this.x_v

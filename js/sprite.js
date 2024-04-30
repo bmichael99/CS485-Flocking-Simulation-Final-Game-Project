@@ -14,22 +14,26 @@ class Sprite {
         this.x_v = 0;
         this.y_v = 0;
 
-        
+        this.set_v = 5;
 
         this.idle = false;
 
         this.count = 1;
+
+        this.points = 0;
     }
 
     draw(state){
         var ctx = canvas.getContext('2d');
         //console.log(state['key_change']);
-
+        
         /*if(this.sprite_json[this.root_e][this.state][this.cur_frame]['img'] == null){
             console.log("loading");
             this.sprite_json[this.root_e][this.state][this.cur_frame]['img'] = new Image();
             this.sprite_json[this.root_e][this.state][this.cur_frame]['img'].src = 'Penguins/' + this.root_e + '/' + this.state + '/' + this.cur_frame + '.png';
         }*/
+
+
 
         
         if( this.cur_bk_data != null){
@@ -46,7 +50,7 @@ class Sprite {
 
         this.count += 1;
 
-        if(this.count % 3 == 0){
+        if(this.count % 10 == 0){
             this.cur_frame = this.cur_frame + 1;
             this.count = 1;
         }
@@ -100,6 +104,8 @@ class Sprite {
             }
         }
 
+        this.detect_collision(state['foreground_sprites']);
+
         
         
         
@@ -131,23 +137,38 @@ class Sprite {
             this.idle = false;
 
             if(key["UP"] != null){
-                this.y_v = -10;
+                this.y_v = -this.set_v;
             } else if (key["DOWN"] != null){
-                this.y_v = 10;
+                this.y_v = this.set_v;
             } else {
                 this.y_v = 0;
             }
 
             if(key["RIGHT"] != null){
-                this.x_v = 10;
+                this.x_v = this.set_v;
             } else if (key["LEFT"] != null) {
-                this.x_v = -10;
+                this.x_v = -this.set_v;
             } else {
                 this.x_v = 0;
             }
+    }
 
+    detect_collision(others){
+       for(var other of others){
+            console.log("yo");
             
-
+            //Check if collided with any sprites
+            if( this.x <= (other.x + other.sprite_json[other.root_e][other.state][other.cur_frame]['w']) &&
+                (this.x + this.sprite_json[this.root_e][this.state][this.cur_frame]['w']) >= other.x && 
+                this.y <= (other.y + other.sprite_json[other.root_e][other.state][other.cur_frame]['h']) && 
+                (this.y + this.sprite_json[this.root_e][this.state][this.cur_frame]['h']) >= other.y){
+                    
+                    //If collided with enemy spider
+                    if(other.enemy){
+                        console.log("you died LOL");
+                    }
+            }
+        }
     }
 
     update_animation(){

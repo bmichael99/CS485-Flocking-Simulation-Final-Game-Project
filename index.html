@@ -5,6 +5,7 @@
 
 <script src="js/sprite.js"></script>
 <script src="js/boid.js"></script>
+<script src="js/spider.js"></script>
 
 
 </head>
@@ -39,6 +40,7 @@
     sprites_to_draw[0] = new Array(0); //background and 
     sprites_to_draw[1] = new Array(0); //forground
 
+
     $.getJSON( "Penguins/animationData.json", function( data ) {
         //sprites_to_draw[1].push( new Sprite(data, 0 ,0, "idleSpin") );
         //sprites_to_draw[1].push( new Sprite(data, 100 ,100, "idleWave") );
@@ -53,12 +55,16 @@
                 }
             //}, "500");
 
-        
+        /*
         for(var i = 0; i < 10;i++){
             sprites_to_draw[1].push( new boid(data, "idleSpin") );
-        }
+        }*/
         
+
         sprites_to_draw[1].push( new Sprite(data, 150 ,600, "idleSpin") );
+
+        sprites_to_draw[1].push( new spider(data, "idleSpin") );
+
         
     });
 
@@ -141,13 +147,16 @@
             }
             
         };
-
+        var ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
         
         //Draw forground sprites
         for(var i = 0; i < forground_length; i++){
             sprites_to_draw[1][i].draw( { 'has_background_changed' : has_background_changed,
                                           'key_change' : key_change,
-                                          'key_press' : key_press
+                                          'key_press' : key_press,
+                                          'foreground_sprites' : sprites_to_draw[1]
                                         }
             );
 
