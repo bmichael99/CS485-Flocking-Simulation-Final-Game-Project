@@ -56,17 +56,7 @@ class spider{
         this.track_player(state['foreground_sprites'][0]);
 
 
-        /*
-
-        const myArray = [1, 2, 3, 4, 5];
-
-        const index = myArray.indexOf(2);
-
-        const x = myArray.splice(index, 1);
-
-        console.log(`myArray values: ${myArray}`);
-        console.log(`variable x value: ${x}`);
-        */
+        
 
 
             //If we're not idle, then we should be moving!
